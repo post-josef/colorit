@@ -1,5 +1,5 @@
 import type { ComponentChildren } from "preact";
-import { useEffect, useId, useState } from "preact/hooks";
+import { useId, useState } from "preact/hooks";
 import { css, cx } from "../../styled-system/css";
 
 const wrapClass = css({
@@ -22,17 +22,19 @@ const shellBase = {
     alignItems: "center",
     pointerEvents: "none",
     zIndex: 10,
-    transition: "opacity 120ms ease, transform 120ms ease",
+    transition: "opacity 120ms ease, transform 120ms ease, visibility 120ms ease",
 };
 
 const shellVisibleClass = css({
     ...shellBase,
+    visibility: "visible",
     opacity: 1,
     transform: "translateX(-50%) translateY(0)",
 });
 
 const shellHiddenClass = css({
     ...shellBase,
+    visibility: "hidden",
     opacity: 0,
     transform: "translateX(-50%) translateY(-4px)",
 });
@@ -89,27 +91,7 @@ export function Tooltip({ label, children, class: className, open: openProp }: P
     const [hoverOpen, setHoverOpen] = useState(false);
     const controlled = openProp !== undefined;
     const open = controlled ? openProp : hoverOpen;
-    const [present, setPresent] = useState(false);
-    const [visible, setVisible] = useState(false);
     const id = useId();
-
-    useEffect(() => {
-        if (open) {
-            setPresent(true);
-            const frame = requestAnimationFrame(() => {
-                requestAnimationFrame(() => setVisible(true));
-            });
-            return () => cancelAnimationFrame(frame);
-        }
-        setVisible(false);
-    }, [open]);
-
-    const handleTransitionEnd = (e: TransitionEvent) => {
-        if (e.propertyName !== "opacity") return;
-        if (!visible) setPresent(false);
-    };
-
-    const describedBy = open && present ? id : undefined;
 
     return (
         <span
@@ -125,17 +107,15 @@ export function Tooltip({ label, children, class: className, open: openProp }: P
                       }
             }
         >
-            <span class={targetWrapClass} aria-describedby={describedBy}>{children}</span>
-            {present && (
-                <span
-                    id={id}
-                    role="tooltip"
-                    class={visible ? shellVisibleClass : shellHiddenClass}
-                    onTransitionEnd={handleTransitionEnd}
-                >
-                    <span class={bodyClass}>{label}</span>
-                </span>
-            )}
+            <span class={targetWrapClass} aria-describedby={open ? id : undefined}>{children}</span>
+            <span
+                id={id}
+                role="tooltip"
+                aria-hidden={!open}
+                class={open ? shellVisibleClass : shellHiddenClass}
+            >
+                <span class={bodyClass}>{label}</span>
+            </span>
         </span>
     );
 }
