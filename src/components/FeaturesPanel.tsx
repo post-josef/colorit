@@ -1,4 +1,4 @@
-import { Columns4, Expand, LayoutGrid, Shapes, Sparkles, X } from "lucide-preact";
+import { Columns4, Grid3x3, LayoutGrid, Shapes, Sparkles, Square, X } from "lucide-preact";
 import { css } from "../../styled-system/css";
 import { Tag, type DisplayMode, type GridSize } from "../types";
 import { SegmentedControl, type SegmentOption } from "./SegmentedControl";
@@ -23,22 +23,35 @@ const sectionClass = css({
     gap: "2",
 });
 
+const togglesGroupClass = css({
+    display: "flex",
+    flexDirection: { base: "row", md: "column" },
+    gap: { base: "4", md: "6" },
+    alignItems: { base: "flex-start", md: "stretch" },
+});
+
+const toggleSectionClass = css({
+    display: "flex",
+    flexDirection: "column",
+    gap: "2",
+    flex: { base: "1 1 0", md: "0 0 auto" },
+    minWidth: { base: 0, md: "auto" },
+});
+
 const labelClass = css({
     fontSize: "sm",
     fontWeight: "semibold",
     opacity: 0.85,
 });
 
-const filterRowClass = css({
-    display: "flex",
-    alignItems: "center",
-    gap: "1",
-});
-
-const inputClass = css({
-    flex: 1,
-    minWidth: 0,
-    padding: "2 3",
+const fieldClass = css({
+    width: "100%",
+    boxSizing: "border-box",
+    height: "9",
+    paddingTop: "1",
+    paddingBottom: "1",
+    paddingLeft: "2",
+    paddingRight: "2",
     borderRadius: "md",
     borderWidth: "1px",
     borderStyle: "solid",
@@ -46,37 +59,48 @@ const inputClass = css({
     bg: "surface",
     color: "fg",
     fontSize: "sm",
-    _focusVisible: {
-        outline: "2px solid",
-        outlineColor: "fg",
-        outlineOffset: "2px",
+    lineHeight: "tight",
+    _focus: { outline: "none" },
+    _focusVisible: { outline: "none" },
+});
+
+const filterFieldClass = css({
+    position: "relative",
+    flex: 1,
+    minWidth: 0,
+});
+
+const filterInputClass = css({
+    paddingRight: "8",
+    "&::-webkit-search-cancel-button": {
+        display: "none",
     },
 });
 
-const iconButtonClass = css({
+const dismissButtonClass = css({
     display: "inline-flex",
     alignItems: "center",
     justifyContent: "center",
-    padding: "2",
-    borderRadius: "md",
+    padding: "1",
+    margin: "0",
+    borderRadius: "sm",
     border: "none",
     bg: "transparent",
     color: "fg",
     cursor: "pointer",
     opacity: 0.75,
+    lineHeight: 1,
     _hover: { opacity: 1, bg: "controlActive" },
 });
 
+const filterClearButtonClass = css({
+    position: "absolute",
+    top: "50%",
+    right: "1",
+    transform: "translateY(-50%)",
+});
+
 const selectClass = css({
-    width: "100%",
-    padding: "2 3",
-    borderRadius: "md",
-    borderWidth: "1px",
-    borderStyle: "solid",
-    borderColor: "border",
-    bg: "surface",
-    color: "fg",
-    fontSize: "sm",
     cursor: "pointer",
 });
 
@@ -90,7 +114,10 @@ const chipClass = css({
     display: "inline-flex",
     alignItems: "center",
     gap: "1",
-    padding: "1 2",
+    paddingTop: "0.5",
+    paddingBottom: "0.5",
+    paddingRight: "0.5",
+    paddingLeft: "2",
     borderRadius: "md",
     fontSize: "xs",
     bg: "controlActive",
@@ -122,19 +149,19 @@ const sizeOptions: SegmentOption<GridSize>[] = [
         value: "small",
         tooltip: "Small",
         label: "Small grid",
-        icon: <LayoutGrid size={16} strokeWidth={2} aria-hidden />,
+        icon: <Grid3x3 size={18} strokeWidth={2} aria-hidden />,
     },
     {
         value: "medium",
         tooltip: "Medium",
         label: "Medium grid",
-        icon: <LayoutGrid size={20} strokeWidth={2} aria-hidden />,
+        icon: <LayoutGrid size={18} strokeWidth={2} aria-hidden />,
     },
     {
         value: "big",
         tooltip: "Big",
         label: "Big grid",
-        icon: <Expand size={18} strokeWidth={2} aria-hidden />,
+        icon: <Square size={18} strokeWidth={2} aria-hidden />,
     },
 ];
 
@@ -166,12 +193,14 @@ export function FeaturesPanel({
     return (
         <aside class={panelClass} aria-label="Palette options">
             <section class={sectionClass}>
-                <label class={labelClass} for="palette-filter">Filter</label>
-                <div class={filterRowClass}>
+                <label class={labelClass} for="palette-filter">
+                    Filter
+                </label>
+                <div class={filterFieldClass}>
                     <input
                         id="palette-filter"
                         type="search"
-                        class={inputClass}
+                        class={`${fieldClass} ${filterInputClass}`}
                         placeholder="Search palettes…"
                         value={filterQuery}
                         onInput={(e) => onFilterQueryChange(e.currentTarget.value)}
@@ -180,18 +209,20 @@ export function FeaturesPanel({
                     {filterQuery.length > 0 && (
                         <button
                             type="button"
-                            class={iconButtonClass}
+                            class={`${dismissButtonClass} ${filterClearButtonClass}`}
                             aria-label="Clear filter"
                             onClick={() => onFilterQueryChange("")}
                         >
-                            <X size={18} strokeWidth={2} aria-hidden />
+                            <X size={16} strokeWidth={2} aria-hidden />
                         </button>
                     )}
                 </div>
             </section>
 
             <section class={sectionClass}>
-                <span class={labelClass} id="tags-label">Tags</span>
+                <span class={labelClass} id="tags-label">
+                    Tags
+                </span>
                 {selectedTags.length > 0 && (
                     <div class={chipRowClass} role="list" aria-labelledby="tags-label">
                         {selectedTags.map((tag) => (
@@ -199,7 +230,7 @@ export function FeaturesPanel({
                                 {tag}
                                 <button
                                     type="button"
-                                    class={iconButtonClass}
+                                    class={dismissButtonClass}
                                     aria-label={`Remove tag ${tag}`}
                                     onClick={() => onRemoveTag(tag)}
                                 >
@@ -210,7 +241,7 @@ export function FeaturesPanel({
                     </div>
                 )}
                 <select
-                    class={selectClass}
+                    class={`${fieldClass} ${selectClass}`}
                     value=""
                     aria-label="Add tag filter"
                     disabled={availableTags.length === 0}
@@ -222,30 +253,34 @@ export function FeaturesPanel({
                 >
                     <option value="">Add tag…</option>
                     {availableTags.map((tag) => (
-                        <option key={tag} value={tag}>{tag}</option>
+                        <option key={tag} value={tag}>
+                            {tag}
+                        </option>
                     ))}
                 </select>
             </section>
 
-            <section class={sectionClass}>
-                <span class={labelClass}>Display</span>
-                <SegmentedControl
-                    aria-label="Palette display mode"
-                    value={displayMode}
-                    options={displayOptions}
-                    onChange={onDisplayModeChange}
-                />
-            </section>
+            <div class={togglesGroupClass}>
+                <section class={toggleSectionClass}>
+                    <span class={labelClass}>Display</span>
+                    <SegmentedControl
+                        aria-label="Palette display mode"
+                        value={displayMode}
+                        options={displayOptions}
+                        onChange={onDisplayModeChange}
+                    />
+                </section>
 
-            <section class={sectionClass}>
-                <span class={labelClass}>Size</span>
-                <SegmentedControl
-                    aria-label="Grid size"
-                    value={gridSize}
-                    options={sizeOptions}
-                    onChange={onGridSizeChange}
-                />
-            </section>
+                <section class={toggleSectionClass}>
+                    <span class={labelClass}>Size</span>
+                    <SegmentedControl
+                        aria-label="Grid size"
+                        value={gridSize}
+                        options={sizeOptions}
+                        onChange={onGridSizeChange}
+                    />
+                </section>
+            </div>
         </aside>
     );
 }

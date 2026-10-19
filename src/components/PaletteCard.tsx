@@ -2,23 +2,28 @@ import { useState } from "preact/hooks";
 import { css } from "../../styled-system/css";
 import type { DisplayMode, Palette } from "../types";
 import { PaletteShowcase } from "./PaletteShowcase";
+import { Tooltip } from "./Tooltip";
 
 const cardClass = css({
     display: "flex",
     flexDirection: "column",
     gap: "3",
     padding: "3",
-    borderRadius: "xl",
+    borderRadius: "0.5625rem",
     bg: "surface",
 });
 
 const hexListClass = css({
     display: "flex",
     flexDirection: "column",
-    gap: "1",
-    margin: 0,
+    gap: "0",
+    margin: "0 -3",
     padding: 0,
     listStyle: "none",
+});
+
+const hexRowClass = css({
+    width: "100%",
 });
 
 const hexButtonClass = css({
@@ -26,8 +31,8 @@ const hexButtonClass = css({
     alignItems: "center",
     gap: "2",
     width: "100%",
-    padding: "1.5 2",
-    borderRadius: "md",
+    padding: "4px 8px",
+    borderRadius: "0.28125rem",
     border: "none",
     bg: "transparent",
     color: "fg",
@@ -38,17 +43,16 @@ const hexButtonClass = css({
     _hover: { bg: "controlActive" },
 });
 
+const hexTooltipWrapClass = css({
+    display: "flex",
+    width: "100%",
+});
+
 const swatchDotClass = css({
     width: "0.875rem",
     height: "0.875rem",
-    borderRadius: "sm",
+    borderRadius: "0.1875rem",
     flexShrink: 0,
-});
-
-const copiedClass = css({
-    fontSize: "xs",
-    opacity: 0.7,
-    textAlign: "center",
 });
 
 type Props = {
@@ -74,24 +78,21 @@ export function PaletteCard({ palette, displayMode }: Props) {
             <PaletteShowcase palette={palette} mode={displayMode} />
             <ul class={hexListClass}>
                 {palette.colors.map((hex, index) => (
-                    <li key={index}>
-                        <button
-                            type="button"
-                            class={hexButtonClass}
-                            onClick={() => copyHex(hex)}
-                            aria-label={`Copy ${hex}`}
-                        >
-                            <span class={swatchDotClass} style={{ background: hex }} aria-hidden="true" />
-                            {hex}
-                        </button>
+                    <li key={index} class={hexRowClass}>
+                        <Tooltip label="Copied" class={hexTooltipWrapClass} open={copiedHex === hex}>
+                            <button
+                                type="button"
+                                class={hexButtonClass}
+                                onClick={() => copyHex(hex)}
+                                aria-label={`Copy ${hex}`}
+                            >
+                                <span class={swatchDotClass} style={{ background: hex }} aria-hidden="true" />
+                                {hex}
+                            </button>
+                        </Tooltip>
                     </li>
                 ))}
             </ul>
-            {copiedHex && (
-                <p class={copiedClass} role="status" aria-live="polite">
-                    Copied {copiedHex}
-                </p>
-            )}
         </article>
     );
 }

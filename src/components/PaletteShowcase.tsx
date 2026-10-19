@@ -5,7 +5,7 @@ import { PaletteSymbolArt } from "./PaletteSymbolArt";
 const frameClass = css({
     width: "100%",
     aspectRatio: "4 / 3",
-    borderRadius: "lg",
+    borderRadius: "0.375rem",
     overflow: "hidden",
 });
 

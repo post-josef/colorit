@@ -1,10 +1,16 @@
 import type { ComponentChildren } from "preact";
 import { useEffect, useId, useState } from "preact/hooks";
-import { css } from "../../styled-system/css";
+import { css, cx } from "../../styled-system/css";
 
 const wrapClass = css({
     position: "relative",
     display: "inline-flex",
+});
+
+const targetWrapClass = css({
+    display: "flex",
+    width: "100%",
+    minWidth: 0,
 });
 
 const shellBase = {
@@ -37,6 +43,7 @@ const bodyClass = css({
     borderRadius: "md",
     fontSize: "xs",
     fontWeight: "medium",
+    letterSpacing: "0.1px",
     whiteSpace: "nowrap",
     color: "fg",
     bg: "rgba(255, 255, 255, 0.88)",
@@ -73,10 +80,15 @@ const bodyClass = css({
 type Props = {
     label: string;
     children: ComponentChildren;
+    class?: string;
+    /** When set, visibility is controlled externally (no hover/focus tooltip). */
+    open?: boolean;
 };
 
-export function Tooltip({ label, children }: Props) {
-    const [open, setOpen] = useState(false);
+export function Tooltip({ label, children, class: className, open: openProp }: Props) {
+    const [hoverOpen, setHoverOpen] = useState(false);
+    const controlled = openProp !== undefined;
+    const open = controlled ? openProp : hoverOpen;
     const [present, setPresent] = useState(false);
     const [visible, setVisible] = useState(false);
     const id = useId();
@@ -101,15 +113,19 @@ export function Tooltip({ label, children }: Props) {
 
     return (
         <span
-            class={wrapClass}
-            onMouseEnter={() => setOpen(true)}
-            onMouseLeave={() => setOpen(false)}
-            onFocusIn={() => setOpen(true)}
-            onFocusOut={(e) => {
-                if (!e.currentTarget.contains(e.relatedTarget as Node)) setOpen(false);
-            }}
+            class={cx(wrapClass, className)}
+            onMouseEnter={controlled ? undefined : () => setHoverOpen(true)}
+            onMouseLeave={controlled ? undefined : () => setHoverOpen(false)}
+            onFocusIn={controlled ? undefined : () => setHoverOpen(true)}
+            onFocusOut={
+                controlled
+                    ? undefined
+                    : (e) => {
+                          if (!e.currentTarget.contains(e.relatedTarget as Node)) setHoverOpen(false);
+                      }
+            }
         >
-            <span aria-describedby={describedBy}>{children}</span>
+            <span class={targetWrapClass} aria-describedby={describedBy}>{children}</span>
             {present && (
                 <span
                     id={id}

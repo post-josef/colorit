@@ -39,9 +39,9 @@ const gridBase = {
 };
 
 const gridClass = {
-    small: css({ ...gridBase, gridTemplateColumns: "repeat(auto-fill, minmax(9.5rem, 1fr))" }),
-    medium: css({ ...gridBase, gridTemplateColumns: "repeat(auto-fill, minmax(12.5rem, 1fr))" }),
-    big: css({ ...gridBase, gridTemplateColumns: "repeat(auto-fill, minmax(16rem, 1fr))" }),
+    small: css({ ...gridBase, gridTemplateColumns: "repeat(auto-fill, minmax(15rem, 1fr))" }),
+    medium: css({ ...gridBase, gridTemplateColumns: "repeat(auto-fill, minmax(19.5rem, 1fr))" }),
+    big: css({ ...gridBase, gridTemplateColumns: "repeat(auto-fill, minmax(32rem, 1fr))" }),
 };
 
 const emptyClass = css({
@@ -49,6 +49,7 @@ const emptyClass = css({
     padding: "8",
     textAlign: "center",
     opacity: 0.7,
+    letterSpacing: "0.6px",
 });
 
 export function App() {
