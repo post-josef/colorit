@@ -5,21 +5,28 @@
     "type": "module",
     "packageManager": "pnpm@12.14.0",
     "scripts": {
+        "prepare": "panda codegen",
         "dev": "webpack serve --mode development",
         "build": "webpack --mode production",
         "clean": "rm -rf dist",
         "lint": "eslint src"
     },
     "dependencies": {
+        "lucide-preact": "^1.59.0",
         "preact": "^11.0.1"
     },
     "devDependencies": {
+        "@pandacss/dev": "^2.2.0",
+        "@pandacss/preset-base": "2.2.0",
+        "@pandacss/preset-panda": "2.2.0",
         "@types/node": "26.6.5",
         "copy-webpack-plugin": "14.0.0",
         "css-loader": "7.1.5",
         "eslint": "10.13.0",
         "html-webpack-plugin": "5.6.8",
         "mini-css-extract-plugin": "2.10.2",
+        "postcss": "^8.5.30",
+        "postcss-loader": "^8.2.1",
         "ts-loader": "9.6.2",
         "typescript": "6.0.3",
         "typescript-eslint": "8.71.2",

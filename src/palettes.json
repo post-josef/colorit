@@ -1,0 +1,231 @@
+[
+    {
+        "id": "melon-sorbet",
+        "colors": ["#FFE8D6", "#FFADAD", "#FFD6A5", "#FDFFB6"],
+        "tags": ["summer", "pastel"],
+        "font": ["Trebuchet MS", "Lucida Grande", "sans-serif"],
+        "symbol": "fruit"
+    },
+    {
+        "id": "midnight-circuit",
+        "colors": ["#0D1B2A", "#1B263B", "#415A77", "#00F5D4"],
+        "tags": ["winter", "neon", "corporate"],
+        "font": ["Courier New", "Courier", "monospace"],
+        "symbol": "phone"
+    },
+    {
+        "id": "chalkboard-dream",
+        "colors": ["#2F3E46", "#52796F", "#CAD2C5", "#84A98C"],
+        "tags": ["autumn", "corporate"],
+        "font": ["Georgia", "serif"],
+        "symbol": "cube"
+    },
+    {
+        "id": "terracotta-wind",
+        "colors": ["#E07A5F", "#F2CC8F", "#F4F1DE", "#3D405B"],
+        "tags": ["autumn", "poster"],
+        "font": ["Palatino Linotype", "Palatino", "serif"],
+        "symbol": "flower"
+    },
+    {
+        "id": "bubblegum-alley",
+        "colors": ["#FF6AD5", "#C774E8", "#AD8CFF", "#8795E8"],
+        "tags": ["spring", "neon", "pastel"],
+        "font": ["Trebuchet MS", "Lucida Grande", "sans-serif"],
+        "symbol": "drink"
+    },
+    {
+        "id": "frozen-lagoon",
+        "colors": ["#CAF0F8", "#90E0EF", "#00B4D8", "#0077B6"],
+        "tags": ["winter", "pastel", "corporate"],
+        "font": ["Georgia", "serif"],
+        "symbol": "cube"
+    },
+    {
+        "id": "solar-flare",
+        "colors": ["#FF4800", "#FF7B00", "#FFB100", "#FFD60A"],
+        "tags": ["summer", "neon", "poster"],
+        "font": ["Courier New", "Courier", "monospace"],
+        "symbol": "car"
+    },
+    {
+        "id": "moss-garden",
+        "colors": ["#D8F3DC", "#B7E4C7", "#95D5B2", "#40916C"],
+        "tags": ["spring", "pastel"],
+        "font": ["Palatino Linotype", "Palatino", "serif"]
+    },
+    {
+        "id": "boardroom-slate",
+        "colors": ["#F8F9FA", "#DEE2E6", "#495057", "#212529"],
+        "tags": ["corporate", "winter"],
+        "font": ["Trebuchet MS", "Lucida Grande", "sans-serif"],
+        "symbol": "phone"
+    },
+    {
+        "id": "retro-cinema",
+        "colors": ["#D00000", "#FFBA08", "#3F88C5", "#032B43"],
+        "tags": ["poster", "summer"],
+        "font": ["Georgia", "serif"],
+        "symbol": "headphones"
+    },
+    {
+        "id": "lavender-haze",
+        "colors": ["#E0AAFF", "#C77DFF", "#9D4EDD", "#5A189A"],
+        "tags": ["spring", "pastel"],
+        "font": ["Palatino Linotype", "Palatino", "serif"],
+        "symbol": "flower"
+    },
+    {
+        "id": "citrus-pop",
+        "colors": ["#FFF275", "#FF9F1C", "#FF595E", "#1982C4"],
+        "tags": ["summer", "poster", "neon"],
+        "font": ["Courier New", "Courier", "monospace"],
+        "symbol": "fruit"
+    },
+    {
+        "id": "ember-glow",
+        "colors": ["#370617", "#6A040F", "#DC2F02", "#FAA307"],
+        "tags": ["autumn", "poster"],
+        "font": ["Trebuchet MS", "Lucida Grande", "sans-serif"],
+        "symbol": "drink"
+    },
+    {
+        "id": "arctic-mint",
+        "colors": ["#F1FFFA", "#CCFBF1", "#5EEAD4", "#0F766E"],
+        "tags": ["winter", "pastel", "corporate"],
+        "font": ["Georgia", "serif"],
+        "symbol": "jacket"
+    },
+    {
+        "id": "neon-district",
+        "colors": ["#10002B", "#240046", "#FF006E", "#FB5607"],
+        "tags": ["neon", "poster"],
+        "font": ["Courier New", "Courier", "monospace"],
+        "symbol": "car"
+    },
+    {
+        "id": "peony-paper",
+        "colors": ["#FFF0F3", "#FFCCD5", "#FF8FA3", "#C9184A"],
+        "tags": ["spring", "pastel"],
+        "font": ["Palatino Linotype", "Palatino", "serif"],
+        "symbol": "flower"
+    },
+    {
+        "id": "harbor-fog",
+        "colors": ["#ECEFF4", "#D8DEE9", "#4C566A", "#2E3440"],
+        "tags": ["corporate", "winter"],
+        "font": ["Trebuchet MS", "Lucida Grande", "sans-serif"],
+        "symbol": "cube"
+    },
+    {
+        "id": "tropical-punch",
+        "colors": ["#06D6A0", "#118AB2", "#EF476F", "#FFD166"],
+        "tags": ["summer", "neon", "poster"],
+        "font": ["Georgia", "serif"],
+        "symbol": "drink"
+    },
+    {
+        "id": "maple-leaf",
+        "colors": ["#FFE5D9", "#F4A261", "#E76F51", "#264653"],
+        "tags": ["autumn"],
+        "font": ["Palatino Linotype", "Palatino", "serif"],
+        "symbol": "fruit"
+    },
+    {
+        "id": "soft-focus",
+        "colors": ["#FDE2E4", "#E2ECE9", "#BEE1E6", "#C6DEF1"],
+        "tags": ["pastel", "spring"],
+        "font": ["Trebuchet MS", "Lucida Grande", "sans-serif"]
+    },
+    {
+        "id": "electric-skyline",
+        "colors": ["#0B132B", "#1C2541", "#3A506B", "#5BC0BE"],
+        "tags": ["neon", "corporate", "winter"],
+        "font": ["Courier New", "Courier", "monospace"],
+        "symbol": "headphones"
+    },
+    {
+        "id": "sunset-drive",
+        "colors": ["#FF7B9C", "#FF9770", "#FFD670", "#70D6FF"],
+        "tags": ["summer", "poster", "pastel"],
+        "font": ["Georgia", "serif"],
+        "symbol": "car"
+    },
+    {
+        "id": "pine-cone",
+        "colors": ["#3A5A40", "#588157", "#A3B18A", "#DAD7CD"],
+        "tags": ["autumn", "corporate"],
+        "font": ["Palatino Linotype", "Palatino", "serif"],
+        "symbol": "jacket"
+    },
+    {
+        "id": "cotton-candy",
+        "colors": ["#FFC8DD", "#FFAFCC", "#BDE0FE", "#A2D2FF"],
+        "tags": ["pastel", "spring"],
+        "font": ["Trebuchet MS", "Lucida Grande", "sans-serif"],
+        "symbol": "drink"
+    },
+    {
+        "id": "ink-poster",
+        "colors": ["#000000", "#FFFFFF", "#E63946", "#F1FAEE"],
+        "tags": ["poster", "corporate"],
+        "font": ["Courier New", "Courier", "monospace"],
+        "symbol": "shoe"
+    },
+    {
+        "id": "glacier-pop",
+        "colors": ["#EDF2FB", "#D7E3FC", "#ABC4FF", "#6C8CFF"],
+        "tags": ["winter", "pastel"],
+        "font": ["Georgia", "serif"],
+        "symbol": "phone"
+    },
+    {
+        "id": "meadow-buzz",
+        "colors": ["#D9ED92", "#B5E48C", "#99D98C", "#52B69A"],
+        "tags": ["spring", "summer"],
+        "font": ["Palatino Linotype", "Palatino", "serif"],
+        "symbol": "flower"
+    },
+    {
+        "id": "hot-sauce",
+        "colors": ["#FF0A54", "#FF477E", "#FF7096", "#FF85A1"],
+        "tags": ["neon", "summer", "poster"],
+        "font": ["Trebuchet MS", "Lucida Grande", "sans-serif"],
+        "symbol": "fruit"
+    },
+    {
+        "id": "quarterly-report",
+        "colors": ["#F6F7F9", "#E3E7EE", "#8B9CB3", "#2C3E50"],
+        "tags": ["corporate"],
+        "font": ["Georgia", "serif"],
+        "symbol": "cube"
+    },
+    {
+        "id": "orchard-dusk",
+        "colors": ["#582F0E", "#7F4F24", "#936639", "#A68A64"],
+        "tags": ["autumn"],
+        "font": ["Palatino Linotype", "Palatino", "serif"],
+        "symbol": "fruit"
+    },
+    {
+        "id": "roller-rink",
+        "colors": ["#FF99C8", "#FCF6BD", "#D0F4DE", "#A9DEF9"],
+        "tags": ["pastel", "summer", "spring"],
+        "font": ["Courier New", "Courier", "monospace"],
+        "symbol": "shoe"
+    },
+    {
+        "id": "polar-night",
+        "colors": ["#0A0F1C", "#1B263B", "#415A77", "#E0E1DD"],
+        "tags": ["winter", "corporate", "neon"],
+        "font": ["Trebuchet MS", "Lucida Grande", "sans-serif"],
+        "symbol": "headphones"
+    },
+    {
+        "id": "festival-lights",
+        "colors": ["#F72585", "#7209B7", "#3A0CA3", "#4CC9F0"],
+        "tags": ["neon", "poster", "summer"],
+        "font": ["Georgia", "serif"],
+        "symbol": "drink"
+    }
+]
