@@ -93,7 +93,7 @@ export function PaletteShowcase({ palette, mode, grain, geometryEpoch }: Props) 
         const triHalfW = BASE_TRI_HALF_W + triDelta * (BASE_TRI_HALF_W / BASE_TRI_H);
         return {
             circleR: BASE_CIRCLE_R + toView(jitterPx(geometryEpoch, palette.id, 1)),
-            circleCy: CIRCLE_CY - toView(16),
+            circleCy: CIRCLE_CY - toView(20),
             square: BASE_SQUARE + toView(jitterPx(geometryEpoch, palette.id, 2)),
             triPoints: trianglePoints(TRI_CX, TRI_CY, triHalfW, triH),
         };
@@ -107,12 +107,7 @@ export function PaletteShowcase({ palette, mode, grain, geometryEpoch }: Props) 
                 ))}
             </div>
         ) : mode === "geometry" ? (
-            <svg
-                viewBox={`0 0 ${GEOMETRY_VIEW_W} ${GEOMETRY_VIEW_H}`}
-                width="100%"
-                height="100%"
-                aria-hidden="true"
-            >
+            <svg viewBox={`0 0 ${GEOMETRY_VIEW_W} ${GEOMETRY_VIEW_H}`} width="100%" height="100%" aria-hidden="true">
                 <polygon points={geometry.triPoints} fill={c3} />
                 <rect x={SQUARE_X} y={SQUARE_Y} width={geometry.square} height={geometry.square} fill={c2} />
                 <circle cx={CIRCLE_CX} cy={geometry.circleCy} r={geometry.circleR} fill={c1} />
