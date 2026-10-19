@@ -51,6 +51,12 @@ export function App() {
     const [filterQuery, setFilterQuery] = useState("");
     const [selectedTags, setSelectedTags] = useState<Tag[]>([]);
     const [displayMode, setDisplayMode] = useState<DisplayMode>("stripes");
+    const [geometryEpoch, setGeometryEpoch] = useState(0);
+
+    const onDisplayModeChange = (mode: DisplayMode) => {
+        setDisplayMode(mode);
+        if (mode === "geometry") setGeometryEpoch((n) => n + 1);
+    };
     const [gridSize, setGridSize] = useState<GridSize>("medium");
     const [grainEnabled, setGrainEnabled] = useState(true);
 
@@ -70,7 +76,7 @@ export function App() {
                     onAddTag={(tag) => setSelectedTags((t) => (t.includes(tag) ? t : [...t, tag]))}
                     onRemoveTag={(tag) => setSelectedTags((t) => t.filter((x) => x !== tag))}
                     displayMode={displayMode}
-                    onDisplayModeChange={setDisplayMode}
+                    onDisplayModeChange={onDisplayModeChange}
                     gridSize={gridSize}
                     onGridSizeChange={setGridSize}
                     grainEnabled={grainEnabled}
@@ -87,6 +93,7 @@ export function App() {
                                     palette={palette}
                                     displayMode={displayMode}
                                     grain={grainEnabled}
+                                    geometryEpoch={geometryEpoch}
                                 />
                             ))}
                         </div>

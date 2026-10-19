@@ -26,6 +26,7 @@ const groupFramedClass = css({
     borderWidth: "1px",
     borderStyle: "solid",
     borderColor: "border",
+    borderTopColor: "borderTop",
     bg: "surface",
 });
 
@@ -51,7 +52,7 @@ const buttonClass = css({
     bg: "transparent",
     color: "fg",
     cursor: "pointer",
-    opacity: 0.55,
+    opacity: 0.56,
     transition: "opacity 150ms, background 150ms, border-color 150ms, box-shadow 150ms",
     _hover: { opacity: 0.85, bg: "controlActive" },
 });
@@ -59,10 +60,10 @@ const buttonClass = css({
 const buttonActiveClass = css({
     bg: "bg",
     opacity: 1,
-    boxShadow: "0 1px 2px rgba(0, 0, 0, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.6)",
+    boxShadow: "inset 0 1px 3px rgba(0, 0, 0, 0.24), 0 1px 0 rgba(255, 255, 255, 0.2)",
     _hover: { opacity: 1, bg: "bg" },
     _dark: {
-        boxShadow: "0 1px 3px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.06)",
+        boxShadow: "inset 0 1px 3px rgba(0, 0, 0, 0.64), 0 1px 0 rgba(255, 255, 255, 0.06)",
     },
 });
 
@@ -87,10 +88,7 @@ export function SegmentedControl<T extends string>({
 }: Props<T>) {
     return (
         <div
-            class={cx(
-                groupBaseClass,
-                variant === "inline" ? groupInlineClass : groupFramedClass,
-            )}
+            class={cx(groupBaseClass, variant === "inline" ? groupInlineClass : groupFramedClass)}
             role="radiogroup"
             aria-label={ariaLabel}
         >

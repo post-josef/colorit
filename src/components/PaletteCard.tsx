@@ -10,6 +10,9 @@ const cardClass = css({
     gap: "3",
     padding: "3",
     borderRadius: "0.5625rem",
+    borderWidth: "1px",
+    borderStyle: "solid",
+    borderColor: "cardBorder",
     bg: "surface",
 });
 
@@ -49,9 +52,10 @@ type Props = {
     palette: Palette;
     displayMode: DisplayMode;
     grain: boolean;
+    geometryEpoch: number;
 };
 
-export function PaletteCard({ palette, displayMode, grain }: Props) {
+export function PaletteCard({ palette, displayMode, grain, geometryEpoch }: Props) {
     const [copiedHex, setCopiedHex] = useState<string | null>(null);
 
     const copyHex = async (hex: string) => {
@@ -66,7 +70,12 @@ export function PaletteCard({ palette, displayMode, grain }: Props) {
 
     return (
         <article class={cardClass} aria-label={`Palette ${palette.id}`}>
-            <PaletteShowcase palette={palette} mode={displayMode} grain={grain} />
+            <PaletteShowcase
+                palette={palette}
+                mode={displayMode}
+                grain={grain}
+                geometryEpoch={geometryEpoch}
+            />
             <ul class={hexListClass}>
                 {palette.colors.map((hex, i) => (
                     <li key={i}>

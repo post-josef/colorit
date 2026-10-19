@@ -115,8 +115,8 @@ const displayOptions: SegmentOption<DisplayMode>[] = [
 ];
 
 const grainOptions: SegmentOption<"off" | "on">[] = [
-    segOption("off", "Grain off", CircleOff),
-    segOption("on", "Grain on", Grip),
+    segOption("off", "Grain Off", CircleOff),
+    segOption("on", "Grain On", Grip),
 ];
 
 const sizeOptions: SegmentOption<GridSize>[] = [

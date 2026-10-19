@@ -13,7 +13,6 @@ export default defineConfig({
         },
         body: {
             margin: 0,
-            minHeight: "100%",
             height: "100%",
             fontFamily: "system-ui, sans-serif",
             bg: "bg",
@@ -36,6 +35,18 @@ export default defineConfig({
                         value: {
                             base: "rgba(0, 0, 0, 0.1)",
                             _dark: "rgba(255, 255, 255, 0.12)",
+                        },
+                    },
+                    borderTop: {
+                        value: {
+                            base: "rgba(0, 0, 0, 0.08)",
+                            _dark: "rgba(255, 255, 255, 0.16)",
+                        },
+                    },
+                    cardBorder: {
+                        value: {
+                            base: "#e1e1e1",
+                            _dark: "#2e2e2e",
                         },
                     },
                     bg: {
