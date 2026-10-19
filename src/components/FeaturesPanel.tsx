@@ -9,16 +9,25 @@ const panelClass = css({
     width: { base: "100%", md: "15rem" },
     display: "flex",
     flexDirection: "column",
-    gap: "6",
-    padding: "5",
-    borderRightWidth: { md: "1px" },
-    borderRightStyle: "solid",
+    gap: { base: "4", md: "6" },
+    p: "5",
+    pt: { base: "4", md: "5" },
     borderColor: "border",
+    borderBottomWidth: { base: "1px", md: "0" },
+    borderBottomStyle: { base: "solid", md: "none" },
+    borderRightWidth: { base: "0", md: "1px" },
+    borderRightStyle: { md: "solid" },
     bg: "bg",
     overflowY: "auto",
 });
 
 const sectionClass = css({ display: "flex", flexDirection: "column", gap: "1" });
+
+const filterSectionClass = css({
+    display: { base: "none", md: "flex" },
+    flexDirection: "column",
+    gap: "1",
+});
 
 const togglesGroupClass = css({
     display: "flex",
@@ -158,8 +167,10 @@ export function FeaturesPanel({
 
     return (
         <aside class={panelClass} aria-label="Palette options">
-            <section class={sectionClass}>
-                <label class={labelClass} for="palette-filter">Filter</label>
+            <section class={filterSectionClass}>
+                <label class={labelClass} for="palette-filter">
+                    Filter
+                </label>
                 <div class={filterFieldClass}>
                     <input
                         id="palette-filter"
@@ -184,7 +195,9 @@ export function FeaturesPanel({
             </section>
 
             <section class={sectionClass}>
-                <span class={labelClass} id="tags-label">Tags</span>
+                <span class={labelClass} id="tags-label">
+                    Tags
+                </span>
                 {selectedTags.length > 0 && (
                     <div class={chipRowClass} role="list" aria-labelledby="tags-label">
                         {selectedTags.map((tag) => (
@@ -215,7 +228,9 @@ export function FeaturesPanel({
                 >
                     <option value="">Add tag…</option>
                     {availableTags.map((tag) => (
-                        <option key={tag} value={tag}>{tag}</option>
+                        <option key={tag} value={tag}>
+                            {tag}
+                        </option>
                     ))}
                 </select>
             </section>
