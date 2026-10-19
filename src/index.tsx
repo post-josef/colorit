@@ -1,6 +1,6 @@
 import { render } from "preact";
 import { App } from "./App";
-import { bootstrapColorMode } from "./theme/colorMode";
+import { bootstrapColorMode } from "./utils/colorMode";
 import "./index.css";
 
 bootstrapColorMode();

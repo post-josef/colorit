@@ -1,5 +1,5 @@
 import { css } from "../../styled-system/css";
-import { Symbol, type DisplayMode, type Palette } from "../types";
+import { Symbol, type DisplayMode, type Palette } from "../utils/types";
 import { PaletteSymbolArt } from "./PaletteSymbolArt";
 import "./showcase-grain.css";
 
@@ -24,12 +24,11 @@ const stripesClass = css({
 
 const stripeClass = css({ height: "100%" });
 
-const symbolClass = css({
+const symbolWrapClass = css({
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
     height: "100%",
-    width: "100%",
     padding: "4",
 });
 
@@ -53,8 +52,8 @@ export function PaletteShowcase({ palette, mode, grain }: Props) {
             <div class={frameClass}>
                 <div class={stripesHostClass}>
                     <div class={stripesClass}>
-                        {palette.colors.map((color, index) => (
-                            <div key={index} class={stripeClass} style={{ background: color }} />
+                        {palette.colors.map((color, i) => (
+                            <div key={i} class={stripeClass} style={{ background: color }} />
                         ))}
                     </div>
                     {grain && <div class="palette-showcase-grain" aria-hidden="true" />}
@@ -75,14 +74,14 @@ export function PaletteShowcase({ palette, mode, grain }: Props) {
         );
     }
 
-    const symbol = palette.symbol ?? Symbol.Flower;
-    const fills = [c1, c2, c3] as [string, string, string];
-
     return (
         <div class={frameClass} style={{ background: c0 }}>
-            <div class={symbolClass}>
+            <div class={symbolWrapClass}>
                 <div class={symbolInnerClass}>
-                    <PaletteSymbolArt symbol={symbol} fills={fills} />
+                    <PaletteSymbolArt
+                        symbol={palette.symbol ?? Symbol.Flower}
+                        fills={[c1, c2, c3]}
+                    />
                 </div>
             </div>
         </div>

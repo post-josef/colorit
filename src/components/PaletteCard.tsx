@@ -1,6 +1,6 @@
 import { useState } from "preact/hooks";
 import { css } from "../../styled-system/css";
-import type { DisplayMode, Palette } from "../types";
+import type { DisplayMode, Palette } from "../utils/types";
 import { PaletteShowcase } from "./PaletteShowcase";
 import { Tooltip } from "./Tooltip";
 
@@ -16,14 +16,9 @@ const cardClass = css({
 const hexListClass = css({
     display: "flex",
     flexDirection: "column",
-    gap: "0",
     margin: "0 -3",
     padding: 0,
     listStyle: "none",
-});
-
-const hexRowClass = css({
-    width: "100%",
 });
 
 const hexButtonClass = css({
@@ -43,12 +38,7 @@ const hexButtonClass = css({
     _hover: { bg: "controlActive" },
 });
 
-const hexTooltipWrapClass = css({
-    display: "flex",
-    width: "100%",
-});
-
-const swatchDotClass = css({
+const swatchClass = css({
     width: "0.875rem",
     height: "0.875rem",
     borderRadius: "0.1875rem",
@@ -68,7 +58,7 @@ export function PaletteCard({ palette, displayMode, grain }: Props) {
         try {
             await navigator.clipboard.writeText(hex);
             setCopiedHex(hex);
-            window.setTimeout(() => setCopiedHex((current) => (current === hex ? null : current)), 1200);
+            window.setTimeout(() => setCopiedHex((c) => (c === hex ? null : c)), 1200);
         } catch {
             /* clipboard unavailable */
         }
@@ -78,16 +68,16 @@ export function PaletteCard({ palette, displayMode, grain }: Props) {
         <article class={cardClass} aria-label={`Palette ${palette.id}`}>
             <PaletteShowcase palette={palette} mode={displayMode} grain={grain} />
             <ul class={hexListClass}>
-                {palette.colors.map((hex, index) => (
-                    <li key={index} class={hexRowClass}>
-                        <Tooltip label="Copied" class={hexTooltipWrapClass} open={copiedHex === hex}>
+                {palette.colors.map((hex, i) => (
+                    <li key={i}>
+                        <Tooltip label="Copied" fullWidth open={copiedHex === hex}>
                             <button
                                 type="button"
                                 class={hexButtonClass}
                                 onClick={() => copyHex(hex)}
                                 aria-label={`Copy ${hex}`}
                             >
-                                <span class={swatchDotClass} style={{ background: hex }} aria-hidden="true" />
+                                <span class={swatchClass} style={{ background: hex }} aria-hidden="true" />
                                 {hex}
                             </button>
                         </Tooltip>

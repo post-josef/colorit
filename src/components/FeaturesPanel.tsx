@@ -1,7 +1,8 @@
+import type { ComponentChildren } from "preact";
 import { CircleOff, Columns4, Grid3x3, Grip, LayoutGrid, Shapes, Sparkles, Square, X } from "lucide-preact";
-import { css } from "../../styled-system/css";
-import { Tag, type DisplayMode, type GridSize } from "../types";
-import { SegmentedControl, type SegmentOption } from "./SegmentedControl";
+import { css, cx } from "../../styled-system/css";
+import { Tag, type DisplayMode, type GridSize } from "../utils/types";
+import { SegmentedControl, segOption, type SegmentOption } from "./SegmentedControl";
 
 const panelClass = css({
     flexShrink: 0,
@@ -17,11 +18,7 @@ const panelClass = css({
     overflowY: "auto",
 });
 
-const sectionClass = css({
-    display: "flex",
-    flexDirection: "column",
-    gap: "1",
-});
+const sectionClass = css({ display: "flex", flexDirection: "column", gap: "1" });
 
 const togglesGroupClass = css({
     display: "flex",
@@ -38,20 +35,23 @@ const toggleSectionClass = css({
     minWidth: { base: 0, md: "auto" },
 });
 
-const labelClass = css({
-    fontSize: "sm",
-    fontWeight: "semibold",
-    opacity: 0.85,
-});
+const labelClass = css({ fontSize: "sm", fontWeight: "semibold", opacity: 0.85 });
+
+function ToggleSection({ label, children }: { label: string; children: ComponentChildren }) {
+    return (
+        <section class={toggleSectionClass}>
+            <span class={labelClass}>{label}</span>
+            {children}
+        </section>
+    );
+}
 
 const fieldClass = css({
     width: "100%",
     boxSizing: "border-box",
     height: "9",
-    paddingTop: "1",
-    paddingBottom: "1",
-    paddingLeft: "2",
-    paddingRight: "2",
+    py: "1",
+    px: "2",
     borderRadius: "md",
     borderWidth: "1px",
     borderStyle: "solid",
@@ -64,25 +64,12 @@ const fieldClass = css({
     _focusVisible: { outline: "none" },
 });
 
-const filterFieldClass = css({
-    position: "relative",
-    flex: 1,
-    minWidth: 0,
-});
-
-const filterInputClass = css({
-    paddingRight: "8",
-    "&::-webkit-search-cancel-button": {
-        display: "none",
-    },
-});
-
-const dismissButtonClass = css({
+const iconBtnClass = css({
     display: "inline-flex",
     alignItems: "center",
     justifyContent: "center",
-    padding: "1",
-    margin: "0",
+    p: "1",
+    m: "0",
     borderRadius: "sm",
     border: "none",
     bg: "transparent",
@@ -93,94 +80,52 @@ const dismissButtonClass = css({
     _hover: { opacity: 1, bg: "controlActive" },
 });
 
-const filterClearButtonClass = css({
+const filterFieldClass = css({ position: "relative", flex: 1, minWidth: 0 });
+
+const filterInputClass = css({
+    paddingRight: "8",
+    "&::-webkit-search-cancel-button": { display: "none" },
+});
+
+const filterClearClass = css({
     position: "absolute",
     top: "50%",
     right: "1",
     transform: "translateY(-50%)",
 });
 
-const selectClass = css({
-    cursor: "pointer",
-});
-
-const chipRowClass = css({
-    display: "flex",
-    flexWrap: "wrap",
-    gap: "1.5",
-});
+const chipRowClass = css({ display: "flex", flexWrap: "wrap", gap: "1.5" });
 
 const chipClass = css({
     display: "inline-flex",
     alignItems: "center",
     gap: "1",
-    paddingTop: "0.5",
-    paddingBottom: "0.5",
-    paddingRight: "0.5",
-    paddingLeft: "2",
+    py: "0.5",
+    pl: "2",
+    pr: "0.5",
     borderRadius: "md",
     fontSize: "xs",
     bg: "controlActive",
 });
 
 const displayOptions: SegmentOption<DisplayMode>[] = [
-    {
-        value: "stripes",
-        tooltip: "Stripes",
-        label: "Stripes display",
-        icon: <Columns4 size={18} strokeWidth={2} aria-hidden />,
-    },
-    {
-        value: "geometry",
-        tooltip: "Geometry",
-        label: "Geometry display",
-        icon: <Shapes size={18} strokeWidth={2} aria-hidden />,
-    },
-    {
-        value: "symbols",
-        tooltip: "Symbols",
-        label: "Symbols display",
-        icon: <Sparkles size={18} strokeWidth={2} aria-hidden />,
-    },
+    segOption("stripes", "Stripes", Columns4),
+    segOption("geometry", "Geometry", Shapes),
+    segOption("symbols", "Symbols", Sparkles),
 ];
 
-type GrainToggle = "off" | "on";
-
-const grainOptions: SegmentOption<GrainToggle>[] = [
-    {
-        value: "off",
-        tooltip: "No grain",
-        label: "Grain off",
-        icon: <CircleOff size={18} strokeWidth={2} aria-hidden />,
-    },
-    {
-        value: "on",
-        tooltip: "Grain",
-        label: "Grain on",
-        icon: <Grip size={18} strokeWidth={2} aria-hidden />,
-    },
+const grainOptions: SegmentOption<"off" | "on">[] = [
+    segOption("off", "Grain off", CircleOff),
+    segOption("on", "Grain on", Grip),
 ];
 
 const sizeOptions: SegmentOption<GridSize>[] = [
-    {
-        value: "small",
-        tooltip: "Small",
-        label: "Small grid",
-        icon: <Grid3x3 size={18} strokeWidth={2} aria-hidden />,
-    },
-    {
-        value: "medium",
-        tooltip: "Medium",
-        label: "Medium grid",
-        icon: <LayoutGrid size={18} strokeWidth={2} aria-hidden />,
-    },
-    {
-        value: "big",
-        tooltip: "Big",
-        label: "Big grid",
-        icon: <Square size={18} strokeWidth={2} aria-hidden />,
-    },
+    segOption("small", "Small", Grid3x3),
+    segOption("medium", "Medium", LayoutGrid),
+    segOption("big", "Big", Square),
 ];
+
+const ALL_TAGS = Object.values(Tag);
 
 type Props = {
     filterQuery: string;
@@ -209,28 +154,26 @@ export function FeaturesPanel({
     grainEnabled,
     onGrainEnabledChange,
 }: Props) {
-    const availableTags = (Object.values(Tag) as Tag[]).filter((tag) => !selectedTags.includes(tag));
+    const availableTags = ALL_TAGS.filter((tag) => !selectedTags.includes(tag));
 
     return (
         <aside class={panelClass} aria-label="Palette options">
             <section class={sectionClass}>
-                <label class={labelClass} for="palette-filter">
-                    Filter
-                </label>
+                <label class={labelClass} for="palette-filter">Filter</label>
                 <div class={filterFieldClass}>
                     <input
                         id="palette-filter"
                         type="search"
-                        class={`${fieldClass} ${filterInputClass}`}
+                        class={cx(fieldClass, filterInputClass)}
                         placeholder="Search palettes…"
                         value={filterQuery}
                         onInput={(e) => onFilterQueryChange(e.currentTarget.value)}
                         aria-label="Filter palettes"
                     />
-                    {filterQuery.length > 0 && (
+                    {filterQuery && (
                         <button
                             type="button"
-                            class={`${dismissButtonClass} ${filterClearButtonClass}`}
+                            class={cx(iconBtnClass, filterClearClass)}
                             aria-label="Clear filter"
                             onClick={() => onFilterQueryChange("")}
                         >
@@ -241,9 +184,7 @@ export function FeaturesPanel({
             </section>
 
             <section class={sectionClass}>
-                <span class={labelClass} id="tags-label">
-                    Tags
-                </span>
+                <span class={labelClass} id="tags-label">Tags</span>
                 {selectedTags.length > 0 && (
                     <div class={chipRowClass} role="list" aria-labelledby="tags-label">
                         {selectedTags.map((tag) => (
@@ -251,7 +192,7 @@ export function FeaturesPanel({
                                 {tag}
                                 <button
                                     type="button"
-                                    class={dismissButtonClass}
+                                    class={iconBtnClass}
                                     aria-label={`Remove tag ${tag}`}
                                     onClick={() => onRemoveTag(tag)}
                                 >
@@ -262,10 +203,10 @@ export function FeaturesPanel({
                     </div>
                 )}
                 <select
-                    class={`${fieldClass} ${selectClass}`}
+                    class={cx(fieldClass, css({ cursor: "pointer" }))}
                     value=""
                     aria-label="Add tag filter"
-                    disabled={availableTags.length === 0}
+                    disabled={!availableTags.length}
                     onChange={(e) => {
                         const value = e.currentTarget.value as Tag;
                         if (value) onAddTag(value);
@@ -274,43 +215,36 @@ export function FeaturesPanel({
                 >
                     <option value="">Add tag…</option>
                     {availableTags.map((tag) => (
-                        <option key={tag} value={tag}>
-                            {tag}
-                        </option>
+                        <option key={tag} value={tag}>{tag}</option>
                     ))}
                 </select>
             </section>
 
             <div class={togglesGroupClass}>
-                <section class={toggleSectionClass}>
-                    <span class={labelClass}>Display</span>
+                <ToggleSection label="Display">
                     <SegmentedControl
                         aria-label="Palette display mode"
                         value={displayMode}
                         options={displayOptions}
                         onChange={onDisplayModeChange}
                     />
-                </section>
-
-                <section class={toggleSectionClass}>
-                    <span class={labelClass}>Size</span>
+                </ToggleSection>
+                <ToggleSection label="Size">
                     <SegmentedControl
                         aria-label="Grid size"
                         value={gridSize}
                         options={sizeOptions}
                         onChange={onGridSizeChange}
                     />
-                </section>
-
-                <section class={toggleSectionClass}>
-                    <span class={labelClass}>Grain</span>
+                </ToggleSection>
+                <ToggleSection label="Grain">
                     <SegmentedControl
                         aria-label="Grain effect"
                         value={grainEnabled ? "on" : "off"}
                         options={grainOptions}
-                        onChange={(value) => onGrainEnabledChange(value === "on")}
+                        onChange={(v) => onGrainEnabledChange(v === "on")}
                     />
-                </section>
+                </ToggleSection>
             </div>
         </aside>
     );

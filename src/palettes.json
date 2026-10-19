@@ -42,18 +42,18 @@
         "symbol": "phone"
     },
     {
+        "id": "electric-skyline",
+        "colors": ["#0B132B", "#1C2541", "#3A506B", "#5BC0BE"],
+        "tags": ["neon", "corporate", "winter"],
+        "font": ["Courier New", "Courier", "monospace"],
+        "symbol": "headphones"
+    },
+    {
         "id": "maple-leaf",
         "colors": ["#FFE5D9", "#F4A261", "#E76F51", "#264653"],
         "tags": ["autumn"],
         "font": ["Palatino Linotype", "Palatino", "serif"],
         "symbol": "fruit"
-    },
-    {
-        "id": "midnight-circuit",
-        "colors": ["#0D1B2A", "#1B263B", "#415A77", "#00F5D4"],
-        "tags": ["winter", "neon", "corporate"],
-        "font": ["Courier New", "Courier", "monospace"],
-        "symbol": "phone"
     },
     {
         "id": "bubblegum-alley",
@@ -145,11 +145,11 @@
         "font": ["Trebuchet MS", "Lucida Grande", "sans-serif"]
     },
     {
-        "id": "electric-skyline",
-        "colors": ["#0B132B", "#1C2541", "#3A506B", "#5BC0BE"],
-        "tags": ["neon", "corporate", "winter"],
+        "id": "midnight-circuit",
+        "colors": ["#0D1B2A", "#1B263B", "#415A77", "#00F5D4"],
+        "tags": ["winter", "neon", "corporate"],
         "font": ["Courier New", "Courier", "monospace"],
-        "symbol": "headphones"
+        "symbol": "phone"
     },
     {
         "id": "sunset-drive",

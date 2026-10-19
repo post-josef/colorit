@@ -3,8 +3,8 @@ import { css } from "../styled-system/css";
 import { FeaturesPanel } from "./components/FeaturesPanel";
 import { PaletteCard } from "./components/PaletteCard";
 import { TopBar } from "./components/TopBar";
-import { filterPalettes } from "./filterPalettes";
-import type { DisplayMode, GridSize, Palette, Tag } from "./types";
+import { filterPalettes } from "./utils/filterPalettes";
+import type { DisplayMode, GridSize, Palette, Tag } from "./utils/types";
 import palettesData from "./palettes.json";
 
 const palettes = palettesData as Palette[];
@@ -13,7 +13,6 @@ const shellClass = css({
     display: "flex",
     flexDirection: "column",
     height: "100vh",
-    minHeight: "100vh",
     overflow: "hidden",
 });
 
@@ -32,13 +31,9 @@ const contentClass = css({
     padding: "5",
 });
 
-const gridBase = {
-    display: "grid",
-    gap: "4",
-    alignContent: "start",
-};
+const gridBase = { display: "grid", gap: "4", alignContent: "start" as const };
 
-const gridClass = {
+const gridClass: Record<GridSize, string> = {
     small: css({ ...gridBase, gridTemplateColumns: "repeat(auto-fill, minmax(15rem, 1fr))" }),
     medium: css({ ...gridBase, gridTemplateColumns: "repeat(auto-fill, minmax(19.5rem, 1fr))" }),
     big: css({ ...gridBase, gridTemplateColumns: "repeat(auto-fill, minmax(32rem, 1fr))" }),
@@ -64,14 +59,6 @@ export function App() {
         [filterQuery, selectedTags],
     );
 
-    const addTag = (tag: Tag) => {
-        setSelectedTags((current) => (current.includes(tag) ? current : [...current, tag]));
-    };
-
-    const removeTag = (tag: Tag) => {
-        setSelectedTags((current) => current.filter((t) => t !== tag));
-    };
-
     return (
         <div class={shellClass}>
             <TopBar />
@@ -80,8 +67,8 @@ export function App() {
                     filterQuery={filterQuery}
                     onFilterQueryChange={setFilterQuery}
                     selectedTags={selectedTags}
-                    onAddTag={addTag}
-                    onRemoveTag={removeTag}
+                    onAddTag={(tag) => setSelectedTags((t) => (t.includes(tag) ? t : [...t, tag]))}
+                    onRemoveTag={(tag) => setSelectedTags((t) => t.filter((x) => x !== tag))}
                     displayMode={displayMode}
                     onDisplayModeChange={setDisplayMode}
                     gridSize={gridSize}
