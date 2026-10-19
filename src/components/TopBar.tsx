@@ -22,15 +22,27 @@ const titleClass = css({
     margin: 0,
     paddingInline: "4",
     fontFamily: "display",
-    fontSize: { base: "xl", md: "2xl" },
-    fontWeight: "normal",
+    fontSize: "xl",
+    fontWeight: "700",
     letterSpacing: "0.02em",
+    backgroundRepeat: "repeat",
+    backgroundSize: "contain",
+    backgroundPosition: "center",
+    backgroundClip: "text",
+    color: "transparent",
+    WebkitTextFillColor: "transparent",
+    textShadow: "0 0 rgba(0, 0, 0, 0.2)",
+    _dark: {
+        textShadow: "0 0 rgba(255, 255, 255, 0.4)",
+    },
 });
 
 export function TopBar() {
     return (
         <header class={barClass}>
-            <h1 class={titleClass}>Colorit Palettes</h1>
+            <h1 class={titleClass} style={{ backgroundImage: "url(/colorit.png)" }}>
+                Colorit Palettes
+            </h1>
             <ThemeSelect />
         </header>
     );

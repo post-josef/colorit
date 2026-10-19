@@ -57,6 +57,7 @@ export function App() {
     const [selectedTags, setSelectedTags] = useState<Tag[]>([]);
     const [displayMode, setDisplayMode] = useState<DisplayMode>("stripes");
     const [gridSize, setGridSize] = useState<GridSize>("medium");
+    const [grainEnabled, setGrainEnabled] = useState(false);
 
     const filtered = useMemo(
         () => filterPalettes(palettes, filterQuery, selectedTags),
@@ -85,6 +86,8 @@ export function App() {
                     onDisplayModeChange={setDisplayMode}
                     gridSize={gridSize}
                     onGridSizeChange={setGridSize}
+                    grainEnabled={grainEnabled}
+                    onGrainEnabledChange={setGrainEnabled}
                 />
                 <main class={contentClass} aria-label="Palettes">
                     {filtered.length === 0 ? (
@@ -96,6 +99,7 @@ export function App() {
                                     key={palette.id}
                                     palette={palette}
                                     displayMode={displayMode}
+                                    grain={grainEnabled}
                                 />
                             ))}
                         </div>

@@ -1,6 +1,7 @@
 import { css } from "../../styled-system/css";
 import { Symbol, type DisplayMode, type Palette } from "../types";
 import { PaletteSymbolArt } from "./PaletteSymbolArt";
+import "./showcase-grain.css";
 
 const frameClass = css({
     width: "100%",
@@ -9,21 +10,19 @@ const frameClass = css({
     overflow: "hidden",
 });
 
+const stripesHostClass = css({
+    position: "relative",
+    height: "100%",
+    isolation: "isolate",
+});
+
 const stripesClass = css({
     display: "grid",
     gridTemplateColumns: "repeat(4, 1fr)",
     height: "100%",
 });
 
-const stripeClass = css({
-    height: "100%",
-});
-
-const geometryClass = css({
-    position: "relative",
-    height: "100%",
-    width: "100%",
-});
+const stripeClass = css({ height: "100%" });
 
 const symbolClass = css({
     display: "flex",
@@ -43,18 +42,22 @@ const symbolInnerClass = css({
 type Props = {
     palette: Palette;
     mode: DisplayMode;
+    grain: boolean;
 };
 
-export function PaletteShowcase({ palette, mode }: Props) {
+export function PaletteShowcase({ palette, mode, grain }: Props) {
     const [c0, c1, c2, c3] = palette.colors;
 
     if (mode === "stripes") {
         return (
             <div class={frameClass}>
-                <div class={stripesClass}>
-                    {palette.colors.map((color, index) => (
-                        <div key={index} class={stripeClass} style={{ background: color }} />
-                    ))}
+                <div class={stripesHostClass}>
+                    <div class={stripesClass}>
+                        {palette.colors.map((color, index) => (
+                            <div key={index} class={stripeClass} style={{ background: color }} />
+                        ))}
+                    </div>
+                    {grain && <div class="palette-showcase-grain" aria-hidden="true" />}
                 </div>
             </div>
         );
@@ -63,13 +66,11 @@ export function PaletteShowcase({ palette, mode }: Props) {
     if (mode === "geometry") {
         return (
             <div class={frameClass} style={{ background: c0 }}>
-                <div class={geometryClass}>
-                    <svg viewBox="0 0 100 75" width="100%" height="100%" aria-hidden="true">
-                        <circle cx="72" cy="22" r="14" fill={c1} />
-                        <rect x="18" y="42" width="22" height="22" fill={c2} />
-                        <polygon points="50,12 62,38 38,38" fill={c3} />
-                    </svg>
-                </div>
+                <svg viewBox="0 0 100 75" width="100%" height="100%" aria-hidden="true">
+                    <circle cx="72" cy="22" r="14" fill={c1} />
+                    <rect x="18" y="42" width="22" height="22" fill={c2} />
+                    <polygon points="50,12 62,38 38,38" fill={c3} />
+                </svg>
             </div>
         );
     }

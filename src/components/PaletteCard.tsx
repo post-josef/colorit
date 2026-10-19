@@ -58,9 +58,10 @@ const swatchDotClass = css({
 type Props = {
     palette: Palette;
     displayMode: DisplayMode;
+    grain: boolean;
 };
 
-export function PaletteCard({ palette, displayMode }: Props) {
+export function PaletteCard({ palette, displayMode, grain }: Props) {
     const [copiedHex, setCopiedHex] = useState<string | null>(null);
 
     const copyHex = async (hex: string) => {
@@ -75,7 +76,7 @@ export function PaletteCard({ palette, displayMode }: Props) {
 
     return (
         <article class={cardClass} aria-label={`Palette ${palette.id}`}>
-            <PaletteShowcase palette={palette} mode={displayMode} />
+            <PaletteShowcase palette={palette} mode={displayMode} grain={grain} />
             <ul class={hexListClass}>
                 {palette.colors.map((hex, index) => (
                     <li key={index} class={hexRowClass}>

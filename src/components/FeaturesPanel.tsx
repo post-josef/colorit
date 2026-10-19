@@ -1,4 +1,4 @@
-import { Columns4, Grid3x3, LayoutGrid, Shapes, Sparkles, Square, X } from "lucide-preact";
+import { CircleOff, Columns4, Grid3x3, Grip, LayoutGrid, Shapes, Sparkles, Square, X } from "lucide-preact";
 import { css } from "../../styled-system/css";
 import { Tag, type DisplayMode, type GridSize } from "../types";
 import { SegmentedControl, type SegmentOption } from "./SegmentedControl";
@@ -20,7 +20,7 @@ const panelClass = css({
 const sectionClass = css({
     display: "flex",
     flexDirection: "column",
-    gap: "2",
+    gap: "1",
 });
 
 const togglesGroupClass = css({
@@ -33,7 +33,7 @@ const togglesGroupClass = css({
 const toggleSectionClass = css({
     display: "flex",
     flexDirection: "column",
-    gap: "2",
+    gap: "1",
     flex: { base: "1 1 0", md: "0 0 auto" },
     minWidth: { base: 0, md: "auto" },
 });
@@ -144,6 +144,23 @@ const displayOptions: SegmentOption<DisplayMode>[] = [
     },
 ];
 
+type GrainToggle = "off" | "on";
+
+const grainOptions: SegmentOption<GrainToggle>[] = [
+    {
+        value: "off",
+        tooltip: "No grain",
+        label: "Grain off",
+        icon: <CircleOff size={18} strokeWidth={2} aria-hidden />,
+    },
+    {
+        value: "on",
+        tooltip: "Grain",
+        label: "Grain on",
+        icon: <Grip size={18} strokeWidth={2} aria-hidden />,
+    },
+];
+
 const sizeOptions: SegmentOption<GridSize>[] = [
     {
         value: "small",
@@ -175,6 +192,8 @@ type Props = {
     onDisplayModeChange: (mode: DisplayMode) => void;
     gridSize: GridSize;
     onGridSizeChange: (size: GridSize) => void;
+    grainEnabled: boolean;
+    onGrainEnabledChange: (enabled: boolean) => void;
 };
 
 export function FeaturesPanel({
@@ -187,6 +206,8 @@ export function FeaturesPanel({
     onDisplayModeChange,
     gridSize,
     onGridSizeChange,
+    grainEnabled,
+    onGrainEnabledChange,
 }: Props) {
     const availableTags = (Object.values(Tag) as Tag[]).filter((tag) => !selectedTags.includes(tag));
 
@@ -278,6 +299,16 @@ export function FeaturesPanel({
                         value={gridSize}
                         options={sizeOptions}
                         onChange={onGridSizeChange}
+                    />
+                </section>
+
+                <section class={toggleSectionClass}>
+                    <span class={labelClass}>Grain</span>
+                    <SegmentedControl
+                        aria-label="Grain effect"
+                        value={grainEnabled ? "on" : "off"}
+                        options={grainOptions}
+                        onChange={(value) => onGrainEnabledChange(value === "on")}
                     />
                 </section>
             </div>
