@@ -57,7 +57,7 @@ export function App() {
     const [selectedTags, setSelectedTags] = useState<Tag[]>([]);
     const [displayMode, setDisplayMode] = useState<DisplayMode>("stripes");
     const [gridSize, setGridSize] = useState<GridSize>("medium");
-    const [grainEnabled, setGrainEnabled] = useState(false);
+    const [grainEnabled, setGrainEnabled] = useState(true);
 
     const filtered = useMemo(
         () => filterPalettes(palettes, filterQuery, selectedTags),
