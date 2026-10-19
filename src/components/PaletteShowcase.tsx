@@ -1,8 +1,8 @@
 import { useLayoutEffect, useMemo, useRef, useState } from "preact/hooks";
 import { css } from "../../styled-system/css";
 import { Symbol, type DisplayMode, type Palette } from "../utils/types";
+import { PaletteGrainOverlay } from "./PaletteGrainOverlay";
 import { PaletteSymbolArt } from "./PaletteSymbolArt";
-import "./showcase-grain.css";
 
 const frameClass = css({
     width: "100%",
@@ -11,7 +11,7 @@ const frameClass = css({
     overflow: "hidden",
 });
 
-const stripesHostClass = css({
+const contentHostClass = css({
     position: "relative",
     height: "100%",
     isolation: "isolate",
@@ -99,44 +99,39 @@ export function PaletteShowcase({ palette, mode, grain, geometryEpoch }: Props) 
         };
     }, [frameWidth, geometryEpoch, palette.id]);
 
-    if (mode === "stripes") {
-        return (
-            <div ref={frameRef} class={frameClass}>
-                <div class={stripesHostClass}>
-                    <div class={stripesClass}>
-                        {palette.colors.map((color, i) => (
-                            <div key={i} class={stripeClass} style={{ background: color }} />
-                        ))}
-                    </div>
-                    {grain && <div class="palette-showcase-grain" aria-hidden="true" />}
-                </div>
+    const content =
+        mode === "stripes" ? (
+            <div class={stripesClass}>
+                {palette.colors.map((color, i) => (
+                    <div key={i} class={stripeClass} style={{ background: color }} />
+                ))}
             </div>
-        );
-    }
-
-    if (mode === "geometry") {
-        return (
-            <div ref={frameRef} class={frameClass} style={{ background: c0 }}>
-                <svg
-                    viewBox={`0 0 ${GEOMETRY_VIEW_W} ${GEOMETRY_VIEW_H}`}
-                    width="100%"
-                    height="100%"
-                    aria-hidden="true"
-                >
-                    <polygon points={geometry.triPoints} fill={c3} />
-                    <rect x={SQUARE_X} y={SQUARE_Y} width={geometry.square} height={geometry.square} fill={c2} />
-                    <circle cx={CIRCLE_CX} cy={geometry.circleCy} r={geometry.circleR} fill={c1} />
-                </svg>
-            </div>
-        );
-    }
-
-    return (
-        <div ref={frameRef} class={frameClass} style={{ background: c0 }}>
+        ) : mode === "geometry" ? (
+            <svg
+                viewBox={`0 0 ${GEOMETRY_VIEW_W} ${GEOMETRY_VIEW_H}`}
+                width="100%"
+                height="100%"
+                aria-hidden="true"
+            >
+                <polygon points={geometry.triPoints} fill={c3} />
+                <rect x={SQUARE_X} y={SQUARE_Y} width={geometry.square} height={geometry.square} fill={c2} />
+                <circle cx={CIRCLE_CX} cy={geometry.circleCy} r={geometry.circleR} fill={c1} />
+            </svg>
+        ) : (
             <div class={symbolWrapClass}>
                 <div class={symbolInnerClass}>
                     <PaletteSymbolArt symbol={palette.symbol ?? Symbol.Flower} fills={[c1, c2, c3]} />
                 </div>
+            </div>
+        );
+
+    const frameBg = mode !== "stripes" ? c0 : undefined;
+
+    return (
+        <div ref={frameRef} class={frameClass} style={frameBg ? { background: frameBg } : undefined}>
+            <div class={contentHostClass}>
+                {content}
+                {grain && <PaletteGrainOverlay />}
             </div>
         </div>
     );
