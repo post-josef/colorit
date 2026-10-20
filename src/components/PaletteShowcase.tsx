@@ -126,7 +126,7 @@ export function PaletteShowcase({ palette, mode, grain, geometryEpoch }: Props) 
         <div ref={frameRef} class={frameClass} style={frameBg ? { background: frameBg } : undefined}>
             <div class={contentHostClass}>
                 {content}
-                {grain && <PaletteGrainOverlay />}
+                {grain && <PaletteGrainOverlay mode={mode} />}
             </div>
         </div>
     );

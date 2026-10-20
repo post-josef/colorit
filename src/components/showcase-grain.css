@@ -31,3 +31,11 @@
         transparent 100%
     );
 }
+
+.palette-showcase-grain--geometry {
+    opacity: 0.72;
+}
+
+.palette-showcase-grain--symbols {
+    opacity: 0.88;
+}
